@@ -33,8 +33,9 @@ public class HolaMundo extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String clave1=request.getParameter("clave1");
-            String clave2=request.getParameter("clave2");
+            String titulo=request.getParameter("titulo");
+            String calificacion=request.getParameter("calificacion");
+            int cali=Integer.parseInt(calificacion);
             ConjuntoLibro libros = new ConjuntoLibro();
             Libro[] listaLibros =libros.listarLibros();
             
@@ -46,8 +47,11 @@ public class HolaMundo extends HttpServlet {
             out.println("<title>Servlet HolaMundo</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>HolaMundo " + clave1 + " " + clave2 + "</h1>");
-             
+            out.println("<h1>titulo libro  " + titulo + " "+"Calificacion  " + cali + "</h1>");
+            
+            Libro li = new Libro(titulo,cali);
+            libros.registrar(li);
+            
             for (int i = 0; i < listaLibros.length; i++) {
                 Libro l = listaLibros[i];
                 if(l != null)
